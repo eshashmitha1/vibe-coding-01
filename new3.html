@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Idea Board</title>
+    <style>
+        /* Modern Background Design */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Layout Container */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        /* Header Section with Logo */
+        header {
+            background-color: #337ab7;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo-svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+
+        /* Stats Section (New Element 1) */
+        .stats-bar {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            border-bottom: 1px solid #eee;
+            text-align: right;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Input Area */
+        .input-section {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr 2fr auto auto;
+            gap: 10px;
+            background: #fff;
+        }
+
+        select, input {
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, input:focus {
+            border-color: #337ab7;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .btn-add { background-color: #337ab7; color: white; }
+        .btn-clear { background-color: #e74c3c; color: white; } /* New Element 2: Clear Button */
+        
+        .btn:hover { opacity: 0.9; }
+
+        /* Content List */
+        main { padding: 20px; }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fdfdfd;
+            padding: 15px;
+            border-left: 5px solid #337ab7;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .suggested-by {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        /* Footer Section */
+        footer {
+            background: #34495e;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <svg class="logo-svg" viewBox="0 0 100 100" style="width: 50px; height: 50px; fill: white;">
+            <circle cx="35" cy="80" r="8"/>
+            <circle cx="50" cy="80" r="10"/>
+            <circle cx="65" cy="80" r="8"/>
+            <path d="M25,95 Q50,75 75,95 L75,100 L25,100 Z"/>
+
+            <path d="M50,10 L56,31 L78,31 L60,45 L66,66 L50,53 L34,66 L40,45 L22,31 L44,31 Z" fill="#ffd700"/>
+            
+            <line x1="50" y1="2" x2="50" y2="8" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            <line x1="25" y1="12" x2="31" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            <line x1="75" y1="12" x2="69" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <h1 style="margin:0; font-size: 1.5rem;">Group Idea Board Pro</h1>
+    </header>
+
+    <div class="stats-bar">
+        Total Ideas: <span id="totalCounter">3</span>
+    </div>
+    
+    <div class="input-section">
+        <select id="userName">
+            <option value="" disabled selected>Name...</option>
+            <option value="Nimal">Nimal</option>
+            <option value="Sara">Sara</option>
+            <option value="Alex">Alex</option>
+        </select>
+        
+        <input type="text" id="ideaInput" placeholder="What's your brilliant idea?">
+        
+        <button class="btn btn-add" onclick="addIdea()">Add</button>
+        <button class="btn btn-clear" onclick="clearInput()">Clear</button>
+    </div>
+
+    <main>
+        <ul id="ideaList">
+            <li>Build a study planner <span class="suggested-by">suggested by Nimal</span></li>
+            <li>Start a podcast <span class="suggested-by">suggested by Sara</span></li>
+            <li>Organize a coding workshop <span class="suggested-by">suggested by Alex</span></li>
+        </ul>
+    </main>
+</div>
+
+<footer>
+    &copy; 2026 Collaboration Tools Inc. | Empowering Team Creativity
+</footer>
+
+<script>
+    // Update the counter on load
+    updateCounter();
+
+    function addIdea() {
+        const nameSelect = document.getElementById('userName');
+        const ideaInput = document.getElementById('ideaInput');
+        const ideaList = document.getElementById('ideaList');
+
+        const name = nameSelect.value;
+        const idea = ideaInput.value.trim();
+
+        if (!name || !idea) {
+            alert("Oops! Please select a name and type an idea.");
+            return;
+        }
+
+        const li = document.createElement('li');
+        li.innerHTML = `${idea} <span class="suggested-by">suggested by ${name}</span>`;
+        
+        // Add with a small fade-in effect via logic
+        ideaList.appendChild(li);
+        
+        clearInput(); // Reset fields after adding
+        updateCounter(); // Refresh total
+    }
+
+    function clearInput() {
+        document.getElementById('ideaInput').value = "";
+        document.getElementById('userName').selectedIndex = 0;
+    }
+
+    function updateCounter() {
+        const count = document.getElementById('ideaList').getElementsByTagName('li').length;
+        document.getElementById('totalCounter').innerText = count;
+    }
+</script>
+
+</body>
+</html>

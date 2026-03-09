@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Idea Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        .container {
+            width: 800px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Header Style */
+        .header {
+            background-color: #337ab7;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Input Area */
+        .input-section {
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        select, input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        select { width: 30%; }
+        input { width: 55%; }
+
+        button {
+            width: 15%;
+            padding: 10px;
+            background-color: #337ab7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #286090;
+        }
+
+        /* List Section */
+        ul {
+            list-style-type: disc;
+            padding: 20px 40px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .suggested-by {
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Group Idea Board</div>
+    
+    <div class="input-section">
+        <select id="userName">
+            <option value="" disabled selected>Select your name...</option>
+            <option value="Nimal">Nimal</option>
+            <option value="Sara">Sara</option>
+            <option value="Alex">Alex</option>
+        </select>
+        
+        <input type="text" id="ideaInput" placeholder="Enter your idea here...">
+        
+        <button onclick="addIdea()">Add Idea</button>
+    </div>
+
+    <ul id="ideaList">
+        <li>Build a study planner – <span class="suggested-by">suggested by Nimal</span></li>
+        <li>Start a podcast – <span class="suggested-by">suggested by Sara</span></li>
+        <li>Organize a coding workshop – <span class="suggested-by">suggested by Alex</span></li>
+    </ul>
+</div>
+
+<script>
+    function addIdea() {
+        const nameSelect = document.getElementById('userName');
+        const ideaInput = document.getElementById('ideaInput');
+        const ideaList = document.getElementById('ideaList');
+
+        const name = nameSelect.value;
+        const idea = ideaInput.value.trim();
+
+        // Validation: Ensure both fields are filled
+        if (name === "" || idea === "") {
+            alert("Please select a name and enter an idea!");
+            return;
+        }
+
+        // Create new list item
+        const li = document.createElement('li');
+        li.innerHTML = `${idea} – <span class="suggested-by">suggested by ${name}</span>`;
+
+        // Append to list
+        ideaList.appendChild(li);
+
+        // Clear input field
+        ideaInput.value = "";
+    }
+</script>
+
+</body>
+</html>

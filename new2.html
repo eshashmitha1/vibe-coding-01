@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Idea Board</title>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --hover-blue: #1d4ed8;
+            --bg-gray: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 60px 20px;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        /* Header Style */
+        .header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Input Area */
+        .input-section {
+            padding: 30px;
+            background-color: #ffffff;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        select, input {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        select { flex: 1; min-width: 150px; }
+        input { flex: 2; min-width: 200px; }
+
+        button {
+            padding: 12px 24px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: var(--hover-blue);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* List Section */
+        #ideaList {
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 16px 30px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        /* Modern bullet point replacement */
+        li::before {
+            content: "•";
+            color: var(--primary-blue);
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-right: 10px;
+        }
+
+        .suggested-by {
+            margin-left: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Group Idea Board</div>
+    
+    <div class="input-section">
+        <select id="userName">
+            <option value="" disabled selected>Select name...</option>
+            <option value="Nimal">Nimal</option>
+            <option value="Sara">Sara</option>
+            <option value="Alex">Alex</option>
+        </select>
+        
+        <input type="text" id="ideaInput" placeholder="What's your idea?">
+        
+        <button onclick="addIdea()">Add Idea</button>
+    </div>
+
+    <ul id="ideaList">
+        <li>Build a study planner <span class="suggested-by">suggested by Nimal</span></li>
+        <li>Start a podcast <span class="suggested-by">suggested by Sara</span></li>
+        <li>Organize a coding workshop <span class="suggested-by">suggested by Alex</span></li>
+    </ul>
+</div>
+
+<script>
+    function addIdea() {
+        const nameSelect = document.getElementById('userName');
+        const ideaInput = document.getElementById('ideaInput');
+        const ideaList = document.getElementById('ideaList');
+
+        const name = nameSelect.value;
+        const idea = ideaInput.value.trim();
+
+        if (name === "" || idea === "") {
+            alert("Please select a name and enter an idea!");
+            return;
+        }
+
+        const li = document.createElement('li');
+        li.innerHTML = `${idea} <span class="suggested-by">suggested by ${name}</span>`;
+        
+        // Add newest ideas to the top
+        ideaList.insertBefore(li, ideaList.firstChild);
+
+        ideaInput.value = "";
+    }
+</script>
+
+</body>
+</html>
