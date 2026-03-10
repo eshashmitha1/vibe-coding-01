@@ -3,108 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Idea Board</title>
+    <title>Modern Idea Board</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
-        <header>
-            <h1>💡 Group Idea Board</h1>
-            <p>Collaborate and share your brightest thoughts</p>
+        <header class="board-header">
+            <h1>Group Idea Board</h1>
+            <div class="idea-counter">Total Ideas: <span id="countValue">1</span></div>
         </header>
 
         <section class="input-section">
-            <div class="input-card">
-                <input type="text" placeholder="What's your idea?" id="ideaInput">
-                <div class="input-actions">
-                    <select id="categorySelect">
-                        <option value="feature">Feature</option>
-                        <option value="design">Design</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <button class="btn-primary">Add Idea</button>
-                </div>
+            <div class="input-group">
+                <select id="userSelect">
+                    <option value="" disabled selected>Select your name...</option>
+                    <option value="Thishara">Thishara</option>
+                    <option value="Sadeka">Sadeka</option>
+                    <option value="Eshan">Eshan</option>
+                    <option value="Lahiru">Lahiru</option>
+                    <option value="Vishwa">Vishwa</option>
+                    <option value="Ransika">Ransika</option>
+                    <option value="Puvi">Puvi</option>
+                    <option value="Tharun">Tharun</option>
+                    <option value="Aloka">Aloka</option>
+                    <option value="Manodya">Manodya</option>
+                </select>
+                
+                <input type="text" id="ideaInput" placeholder="Enter your brilliant idea here..." maxlength="100">
+                
+                <button id="addBtn">Add Idea</button>
             </div>
         </section>
 
-        <main class="board-grid">
-            <!-- Idea Card 1 -->
-            <div class="card category-feature">
-                <div class="card-header">
-                    <span class="tag">Feature</span>
-                    <span class="date">2h ago</span>
-                </div>
-                <div class="card-body">
-                    <p>Implement a dark mode toggle for better accessibility and user preference during night use.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="author">
-                        <div class="avatar">JS</div>
-                        <span>Jane Smith</span>
-                    </div>
-                    <button class="vote-btn">▲ 12</button>
-                </div>
-            </div>
-
-            <!-- Idea Card 2 -->
-            <div class="card category-design">
-                <div class="card-header">
-                    <span class="tag">Design</span>
-                    <span class="date">5h ago</span>
-                </div>
-                <div class="card-body">
-                    <p>Refresh the landing page with more high-quality illustrations and less stock photography.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="author">
-                        <div class="avatar">JD</div>
-                        <span>John Doe</span>
-                    </div>
-                    <button class="vote-btn">▲ 8</button>
-                </div>
-            </div>
-
-            <!-- Idea Card 3 -->
-            <div class="card category-marketing">
-                <div class="card-header">
-                    <span class="tag">Marketing</span>
-                    <span class="date">1d ago</span>
-                </div>
-                <div class="card-body">
-                    <p>Start a monthly newsletter highlighting the most requested features and community contributions.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="author">
-                        <div class="avatar">AM</div>
-                        <span>Alice Miller</span>
-                    </div>
-                    <button class="vote-btn">▲ 24</button>
-                </div>
-            </div>
-
-            <!-- Idea Card 4 -->
-            <div class="card category-other">
-                <div class="card-header">
-                    <span class="tag">Other</span>
-                    <span class="date">2d ago</span>
-                </div>
-                <div class="card-body">
-                    <p>Organize a virtual coffee chat for the team to discuss non-work related topics.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="author">
-                        <div class="avatar">RK</div>
-                        <span>Robert King</span>
-                    </div>
-                    <button class="vote-btn">▲ 5</button>
-                </div>
-            </div>
+        <main class="board-content">
+            <ul id="ideaList">
+                <li class="idea-card">
+                    <div class="idea-text">Build a study planner</div>
+                    <div class="idea-meta">suggested by <span>Thishara</span></div>
+                    <button class="delete-btn">&times;</button>
+                </li>
+            </ul>
         </main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
